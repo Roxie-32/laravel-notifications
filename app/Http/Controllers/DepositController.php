@@ -26,4 +26,9 @@ class DepositController extends Controller
         
         return redirect()->back()->with('status','Your deposit was successful!');
     }
+
+    public function markAsRead(){
+        Auth::user()->unreadNotifications->markAsRead();
+        return redirect()->back();
+    }
 }
