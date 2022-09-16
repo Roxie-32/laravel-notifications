@@ -31,7 +31,7 @@ class DepositSuccessful extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail','database'];
     }
 
     /**
@@ -42,9 +42,12 @@ class DepositSuccessful extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = url('/home');
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->greeting('Hello,')
+                    ->line('Your deposit of '. $this->amount. ' was successful.')
+                    ->action('View dashboard', url('/home'))
                     ->line('Thank you for using our application!');
     }
 
@@ -57,7 +60,7 @@ class DepositSuccessful extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data'=>'Your deposit of '. $this->amount. ' was successful'
+            'data'=>'Your deposit of '. $this->amount. ' was successful.'
         ];
     }
 }
