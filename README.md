@@ -18,21 +18,21 @@ By using the Laravel Artisan command, you can quickly create notifications. You 
 Laravel allows you to select from various notification channels to send notifications in your application. You can use more than one channel.
 
 **Mail**
-These notifications is sent as email to users.
+These notifications are sent as an email to users.
 
 **SMS**
-Users will receive this SMS notifications on their mobile phones.
+Users will receive these SMS notifications on their mobile phones.
 
 **Database**
-These notifications are stored in the database and you can display it to the user with a custom UI.
+These notifications are stored in the database, and you can display them to the user with a custom UI.
 
 **Slack**
 These notifications are sent to slack channels.
 
 **Community Driven Notifications**
-You can check out the community driven [Laravel Notification Channels website](http://laravel-notification-channels.com/) if you want to use various other channels like Telegram.
+You can check out the community-driven [Laravel Notification Channels website](http://laravel-notification-channels.com/) if you want to use various other channels like Telegram.
 
-You can also decide to [create your own drivers to deliver notifications via other channels](https://laravel.com/docs/9.x/notifications#custom-channels).
+You can also decide to [create your drivers to deliver notifications via other channels](https://laravel.com/docs/9.x/notifications#custom-channels).
 
 In this tutorial, we'll build a Laravel application that shows how to send notifications via [email](https://laravel.com/docs/9.x/notifications#mail-notifications) and [database](https://laravel.com/docs/9.x/notifications#database-notifications) channels.
 
@@ -50,15 +50,15 @@ You can create a new Laravel project via the Composer command or the Laravel ins
     composer create-project laravel/laravel project_name
 ```
 
-This will create a fresh Laravel application in a new directory named *project_name.*
+This will create a new Laravel application in a new directory named *project_name.*
 
-### Connect to your database
+### Connect to your Database
 
 [Here](https://dev.to/roxie/how-to-connect-laravel-application-to-mysql-database-5han) is an article I wrote that explains how to [connect a Laravel Application to a MySQL database](https://dev.to/roxie/how-to-connect-laravel-application-to-mysql-database-5han). If you have a different database, make sure to connect it appropriately.
 
 ### Set up Default Authentication Scaffold
 
-Laravel Auth provides a prebuilt authentication UI and functionality to interact with.  Install the Laravel UI package with this command:
+Laravel Auth provides a prebuilt authentication UI and functionality to interact with. Install the Laravel UI package with this command:
 
 ```bash
     composer require laravel/ui
@@ -78,7 +78,7 @@ Next, install the  `npm` packages to generate the `css` and `js` files and run t
     npm run dev
 ```
 
-Finally , run your migrations to create your database tables with this command:
+Finally, run your migrations to create your database tables with this command:
 
 ```bash
     php artisan migrate
@@ -92,22 +92,22 @@ Run this `Artisan` command to serve the project:
     php artisan serve
 ```
 
-The application is served on port `8000` by default , and if you visit `http://localhost:8000/` on your browser you should be view this landing page with a `login` and `register` option at the top right.
+The application is served on port `8000` by default, and if you visit `http://localhost:8000/` on your browser, you should view this landing page with the `login` and `register` options at the top right.
 
 [Image]
 
-Upon a successful registration or login, then you can view your dashboard. All these basic authentication process and UI has been handled by the `laravel/ui` package installed earlier.
+Upon successful registration or login, then you can view your dashboard. All these basic authentication processes and UI are handled by the `laravel/ui` package installed earlier.
 [Image]
 
 ### Create a Notifications Table
 
-You need to create a database table to contain all your notifications. It can be queried at anytime to display notifications to the user interface. To generate a migration with a proper schema notification table schema, you may use this `Artisan` command:
+You need to create a database table to contain all your notifications. It can be queried anytime to display notifications to the user interface. To generate a migration with a proper schema notification table schema, you may use this `Artisan` command:
 
 ```bash
     php artisan notifications:table
 ```
 
-This creates a *create_notifications_table.php* in the *database/migrations* directory which defines the schema of the notifications table. Now you can migrate to your database by running:
+This creates a *create_notifications_table.php* in the *database/migrations* directory, which defines the schema of the notifications table. Now you can migrate to your database by running:
 
 ```bash
     php artisan migrate
@@ -115,7 +115,7 @@ This creates a *create_notifications_table.php* in the *database/migrations* dir
 
 ### Generating Notifications
 
-Each notification in Laravel is represented by a single class, which is normally stored in the app/Notifications directory. It will be generated when you run the `make:notification` Artisan command:
+Each notification in Laravel is represented by a single class, normally stored in the app/Notifications directory. It will be generated when you run the `make:notification` Artisan command:
 
 ```php
     php artisan make:notification DepositSuccessful
@@ -123,7 +123,7 @@ Each notification in Laravel is represented by a single class, which is normally
 
 This generates a *DepositSuccessful.php* file with a new notification class in the *app/Notifications* directory. This class includes a `via()` method that specifies the channel and body message-building methods to assist in formatting the notification data for the selected channel.
 
-The notification class should have a `toDatabase` or `toArray` function defined This method should return a simple PHP array after receiving a `$notifiable` entity. The returned array will be stored in the `data` column of your notifications table after being encoded as JSON.
+The notification class should have a defined `toDatabase` or `toArray` function. This method should return a simple PHP array after receiving a `$notifiable` entity. The returned array will be stored in the `data` column of your notifications table after being encoded as JSON.
 
 ### Formatting Database Notifications
 
@@ -150,23 +150,23 @@ Now, you need to specify the notification channel to use by updating the `via()`
 ```
 
 Afterwards, you update the `toArray()` or `toDatabase()` method with the details of the notification.
-You must define either a `toDatabase()` or a `toArray()` method, and it should return a simple PHP array which will be stored in the `data` column of the notifications table.
+You must define either a `toDatabase()` or a `toArray()` method, and it should return a simple PHP array stored in the `data` column of the notifications table.
 
 ```php
     public function toArray($notifiable)
         {
             return [
-                'data'=>'Your deposit of '. $this->amount. ' was successful'
+                'data' =>' Your deposit of '. $this->amount.' was successful'
             ];
         }
 ```
 
-> The `toArray()` is used by both the database broadcast channel. If you want to use both channels in the app with different array representations , it is best you define `toDatabase()` and `toArray()`. However `toArray()` is the default for either of them.
+> The `toArray()` is used by both the database broadcast channel. If you want to use both channels in the app with different array representations, you should define `toDatabase()` and `toArray()`. However, `toArray()` is the default for either.
 
 ### Add the Notifiable Trait
 
-Laravel notification offers two methods to send notifications. It includes the `Notifiable` trait or `Notification` facade.  In this tutorial, we will focus the Notifiable trait.
-By default, Laravel includes the Notifiable trait in `app/Models/User` model. It should match this example:
+Laravel notification offers two methods to send notifications. It includes the `Notifiable` trait or `Notification` facade. In this tutorial, we will focus on the Notifiable trait.
+By default, Laravel includes the Notifiable trait in the `app/Models/User` model. It should match this example:
 
 ```php
     class User extends Authenticatable
@@ -178,9 +178,9 @@ By default, Laravel includes the Notifiable trait in `app/Models/User` model. It
     }
 ```
 
-### Set up the Deposit model and Migration
+### Set up the Deposit Model and Migration
 
-First, create the model and database migration simultaneously, by running the command below:
+First, create the model and database migration simultaneously by running the command below:
 
 ```bash
     php artisan make:model Deposit -m
@@ -194,7 +194,7 @@ Update Deposit*.php* by adding the code below to the top of the file, which enab
     protected $guarded = [];
 ```
 
-Then, update the `up()` method of the *create_deposits_table.php* migration file with details of the deposit to be stored as in the example below:
+Then, update the `up()` method in the *create_deposits_table.php* migration file with deposit details to be stored as in the example below:
 
 ```php
         public function up()
@@ -208,7 +208,7 @@ Then, update the `up()` method of the *create_deposits_table.php* migration file
         }
 ```
 
-Then , run your migrations to the database again.
+Then, run your migrations to the database again.
 
 ```bash
     php artisan migrate
@@ -216,7 +216,7 @@ Then , run your migrations to the database again.
 
 ### Set up Controller
 
-You need to define the logic for making a deposit and sending the  notification after successful deposit in the [controller](https://laravel.com/docs/9.x/controllers).
+It would be best if you defined the logic for making a deposit and sending the notification after a successful deposit in the [controller](https://laravel.com/docs/9.x/controllers).
 To create the controller, run this Artisan command:
 
 ```bash
@@ -235,7 +235,7 @@ With the file created, add the `import` statements below to import the classes w
     use Illuminate\Support\Facades\Auth;
 ```
 
-Add a  `_construct()` method to declare the auth middleware which allows only authenticated users to make deposit.
+Add a  `_construct()` method to declare the `auth` middleware, which allows only authenticated users to make a deposit.
 
 ```php
      public function __construct()
@@ -258,7 +258,7 @@ Define a `deposit()` method to include logic for making a deposit and sending a 
         }
 ```
 
-Notifications are sent using either the `notify()` method from [Notifiable](https://laravel.com/docs/9.x/notifications#using-the-notifiable-trait) [trait](https://laravel.com/docs/9.x/notifications#using-the-notifiable-trait) or [Notification](https://laravel.com/docs/9.x/notifications#using-the-notification-facade) [facade](https://laravel.com/docs/9.x/notifications#using-the-notification-facade). The facade is useful when you need to send notifications to multiple entities like a collection of users. Although we are using `notify()` for this guide, here is an example of using `Notification` facade.
+Notifications are sent using either the `notify()` method from [Notifiable](https://laravel.com/docs/9.x/notifications#using-the-notifiable-trait) [trait](https://laravel.com/docs/9.x/notifications#using-the-notifiable-trait) or [Notification](https://laravel.com/docs/9.x/notifications#using-the-notification-facade) [facade](https://laravel.com/docs/9.x/notifications#using-the-notification-facade). The facade is useful when sending notifications to multiple entities, like a collection of users. Although we use `notify()` for this guide, here is an example of using `Notification` facade.
 
 ```php
     $users = User::all();
@@ -266,11 +266,11 @@ Notifications are sent using either the `notify()` method from [Notifiable](http
     Notification::send($users, new DepositSuccessful($deposit->amount));
 ```
 
-> Note: The Notifiable trait has already been imported in the User model.  You can import it in any model you need to send notifications to.
+> Note: The Notifiable trait has already been imported into the User model. You can import it into any model you need to send notifications.
 
 ### Set up the routes
 
-You will add a new [route](https://laravel.com/docs/8.x/routing) in *routes/web.php*. We only need to define one since we have only one endpoint `/deposit`, for users to make a deposit.
+You will add a new [route](https://laravel.com/docs/8.x/routing) in *routes/web.php*. We only need to define one since we have only one endpoint, `/deposit`, for users to make a deposit.
 
 ```php
     Route::post('/deposit', [App\Http\Controllers\DepositController::class,'deposit'])->name('deposit');
@@ -278,7 +278,7 @@ You will add a new [route](https://laravel.com/docs/8.x/routing) in *routes/web.
 
 ### Modify the View
 
-Add a basic form to the home page for a user to make deposit  in *resources\views\home.blade.php*  directory.
+Add a basic form to the home page for a user to deposit *resources\views\home.blade.php*  directory.
 
 ```php
         <form method="POST" action="{{ route('deposit') }}">
@@ -305,12 +305,12 @@ Add a basic form to the home page for a user to make deposit  in *resources\view
                         </form>
 ```
 
-Awesome job👍!  Now lets make things more interesting by including a bell notification at the navbar that shows the number of unread notifications. You can also display both read and unread notifications.
-Laravel `Notifiable` trait provides another awesome feature that can help you track both read and unread notifications. You can also [mark a notification as read or delete a notification entirely](https://laravel.com/docs/9.x/notifications#marking-notifications-as-read).
+Awesome job👍! Let's make things more interesting by including a bell notification at the navbar showing the number of unread notifications. You can also display both read and unread notifications.
+Laravel's `Notifiable` trait provides another excellent feature that can help you track both read and unread notifications. You can also [mark a notification as read or delete a notification entirely](https://laravel.com/docs/9.x/notifications#marking-notifications-as-read).
 
-### Update Controller , Route and View With MarkasRead  Feature
+### Update Controller, Route, and View With MarkasRead  Feature
 
-Define a new method `markAsRead()` in the *DepositController.php* to mark all unread notifications as read.
+Define a new method, `markAsRead()` in the *DepositController.php* to mark all unread notifications as read.
 
 ```php
       public function markAsRead(){
@@ -325,14 +325,14 @@ Now, add the corresponding route to the *routes/web.php .*
     Route::get('/mark-as-read', [App\Http\Controllers\DepositController::class,'markAsRead'])->name('mark-as-read');
 ```
 
-You will be updating the *resources\views\layouts\app.blade.php* with a few changes for this feature.
-Firstly,  include this CDN link to [font-awesome](https://cdnjs.com/libraries/font-awesome) in the blade file to enable you use the bell icon.
+You will update the *resources\views\layouts\app.blade.php* with a few changes for this feature.
+Firstly,  include this CDN link to [font-awesome](https://cdnjs.com/libraries/font-awesome) in the blade file to enable you to use the bell icon.
 
 ```php
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 ```
 
-Now, add this example before the fullname and logout dropdown, immediately after the `else` statement.
+Now, add this example before the full name and logout dropdown immediately after the `else` statement.
 
 ```php
                                <li class="nav-item dropdown">
@@ -361,14 +361,14 @@ This will result in a bell icon with a badge count of the unread notifications b
 
 [image]
 
-Amazing job🤩! At this point, you can proceed to testing by making a deposit to view how your notifications display on the dashboard after its successful.
-However lets go a bit further into including mail notifications. When a deposit is made, we want to display notifications in the dashboard and also send a mail to the user.
+Amazing job🤩! At this point, you can proceed to test by making a deposit to view how your notifications display on the dashboard after it's successful.
+However, let's go a bit further into including mail notifications. When a deposit is made, we want to display notifications in the dashboard and send a mail to the user.
 
 ## How to Send Email Notifications
 
 ### Update `**.env**`  mail configurations
 
-You need to update these environment variables  with valid mailer credentials that your app will need to send mails to users.
+You need to update these environment variables with valid mailer credentials that your app will need to send emails to users.
 
 ```php
     MAIL_MAILER=
@@ -383,7 +383,7 @@ You need to update these environment variables  with valid mailer credentials th
 
 ### Formatting Mail Notifications
 
-In the `DepositSuccessful` notification class you created earlier, update the `via()` method to include mail.
+In the `DepositSuccessful` notification class, you created earlier, update the `via()` method to include mail.
 
 ```php
      public function via($notifiable)
@@ -392,9 +392,9 @@ In the `DepositSuccessful` notification class you created earlier, update the `v
         }
 ```
 
-Afterwards, define the `toMail()` method with the mail messages. This method should return an `Illuminate/Notifications/Messages/MailMessage` instance after receiving a $notifiable entity.
+Afterward, define the `toMail()` method with the mail messages. This method should return an `Illuminate/Notifications/Messages/MailMessage` instance after receiving a $notifiable entity.
 
-You can now build email messages with the help of a few simple methods provided by the `MailMessage` class. A "call to action" and lines of text are both possible in mail messages.
+You can now build email messages with the help of a few simple methods provided by the `MailMessage` class. A "call to action" and lines of text are possible in mail messages.
 
 ```php
     public function toMail($notifiable)
@@ -408,9 +408,9 @@ You can now build email messages with the help of a few simple methods provided 
         }
 ```
 
-Small transactional emails can be formatted quickly and easily using these methods provided by the `MailMessage` object. A beautiful, responsive HTML email template with a plain-text counterpart will then be generated from the message components by the mail channel. In this example we supplied a call to action(button) , a line of text and a greeting.
+Small transactional emails can be formatted quickly and easily using these methods provided by the `MailMessage` object. A beautiful, responsive HTML email template with a plain-text counterpart will be generated from the message components by the mail channel. In this example, we supplied a call to action(button), a line of text, and a greeting.
 
-**Hurrah 😎! We are done building 👍. Now, let’s perform some testing and see if it works.**
+**Hurrah 😎! We are done building 👍. Now, let's perform some testing and see if it works.**
 
 ## Testing
 
@@ -418,14 +418,14 @@ If you make a successful deposit, you will get a notification in your dashboard 
 
 [Image]
 
-Notice that the badge number counts only the unread notifications, however the dropdown lists all notifications starting out with the unread. If you decide to `mark all as read` then it refreshes and your notification badge count is back to 0 because you have read all the current notifications.
+Notice that the badge number counts only the unread notifications. However, the dropdown lists all notifications starting with the unread. If you decide to `mark all as read`, it refreshes, and your notification badge count is back to 0 because you have read all the current notifications.
 
-You will also recieve a mail notification that looks like this:
+You will also receive a mail notification that looks like this:
 
 [Image]
 
-Notice that the greeting, line of text and call to action(button) has been formatted to a pretty responsive template in mail.
+Notice that the greeting, line of text, and call to action(button) have been formatted to a responsive email template.
 
 ## Conclusion
 
-In this article,  you have gained an in-depth knowledge of Laravel Notifications. It is an entirely broad concept but this can be a great practical guide. Check out the [official Laravel documentation](https://laravel.com/docs/9.x/notifications) to learn more about [Laravel Notifications.](https://laravel.com/docs/9.x/notifications) It provides various flexible options, you can also customize these various channel to tailor your application needs or [create your own drivers to deliver notifications via other channels](https://laravel.com/docs/9.x/notifications#custom-channels). The code for this project is open-source and available [on GitHub](https://github.com/Roxie-32/laravel-notifications.git).
+In this article,  you have gained an in-depth knowledge of Laravel Notifications. It is a broad concept, but this can be a great practical guide. Check out the [official Laravel documentation](https://laravel.com/docs/9.x/notifications) to learn more about [Laravel Notifications.](https://laravel.com/docs/9.x/notifications) It provides various flexible options, and you can customize these channels to tailor your application needs or [create your drivers to deliver notifications via other channels](https://laravel.com/docs/9.x/notifications#custom-channels). The code for this project is open-source and available [on GitHub](https://github.com/Roxie-32/laravel-notifications.git).
