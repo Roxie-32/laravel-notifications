@@ -1,11 +1,12 @@
 # A Laravel's Guide to Database Notification
 
 When building applications, notifications are essential because they improve user experience and interaction. It would help if you frequently alerted users to various changes or activities while they use applications. It can involve sending an SMS about their login activity for security purposes or email notifications when the order status changes. These notifications often only offer a brief explanation of the state changes. [Laravel](https://laravel.com/docs/9.x/notifications#introduction) supports several delivery channels for sending notifications, including emails, SMS, and [Slack](https://slack.com/). Additionally, notifications may be kept in a database and displayed on your web interface. Here are a few things you'll learn :
-    - What are notifications?
-    - Notification Channels supported by Laravel
-    - How to use live database notifications in Laravel
-    - How to use email notifications in Laravel
-    - Other Laravel-supported notification delivery channels
+
+- What are notifications?
+- Notification Channels supported by Laravel
+- How to use live database notifications in Laravel
+- How to use email notifications in Laravel
+- Other Laravel-supported notification delivery channels
 
 ## Laravel Notifications
 
