@@ -17,19 +17,23 @@ By using the Laravel Artisan command, you can quickly create notifications. You 
 
 Laravel allows you to select from various notification channels to send notifications in your application. You can use more than one channel.
 
-**Mail**
+### Mail
+
 These notifications are sent as an email to users.
 
-**SMS**
+### SMS
+
 Users will receive these SMS notifications on their mobile phones.
 
-**Database**
+### Database
+
 These notifications are stored in the database, and you can display them to the user with a custom UI.
 
-**Slack**
+### Slack
 These notifications are sent to slack channels.
 
-**Community Driven Notifications**
+### Community Driven Notifications
+
 You can check out the community-driven [Laravel Notification Channels website](http://laravel-notification-channels.com/) if you want to use various other channels like Telegram.
 
 You can also decide to [create your drivers to deliver notifications via other channels](https://laravel.com/docs/9.x/notifications#custom-channels).
