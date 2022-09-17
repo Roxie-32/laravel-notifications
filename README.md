@@ -10,8 +10,8 @@ When building applications, notifications are essential because they improve use
 
 ## Laravel Notifications
 
-Notifications can be considered brief, direct messages sent to users to inform them of important information or events or to prompt a response in the application. Ideally, they keep users up to date and increase user engagement. Laravel provides support for sending notifications via a variety of channels. By default, it includes `[mail](https://laravel.com/docs/9.x/notifications#mail-notifications)`, `[slack](https://laravel.com/docs/9.x/notifications#slack-notifications)`, `[database](https://laravel.com/docs/9.x/notifications#database-notifications)`, `broadcast`, and `[vonage](https://www.vonage.com/communications-apis/)` channels. You can visit the [community-driven Laravel Notification Channels website](https://laravel-notification-channels.com/) to leverage other delivery channels like Telegram or Pusher.
-By using the Laravel `artisan` command, you can quickly create notifications. You can also customize the notification's email subject, body, and central action, among other things.
+Notifications can be considered brief, direct messages sent to users to inform them of important information or events or to prompt a response in the application. Ideally, they keep users up to date and increase user engagement. Laravel provides support for sending notifications via a variety of channels. By default, it includes [mail](https://laravel.com/docs/9.x/notifications#mail-notifications)`, [slack](https://laravel.com/docs/9.x/notifications#slack-notifications), [database](https://laravel.com/docs/9.x/notifications#database-notifications), broadcast, and [vonage](https://www.vonage.com/communications-apis/) channels. You can visit the [community-driven Laravel Notification Channels website](https://laravel-notification-channels.com/) to leverage other delivery channels like Telegram or Pusher.
+By using the Laravel Artisan command, you can quickly create notifications. You can also customize the notification's email subject, body, and central action, among other things.
 
 ## Laravel's Notification Channels
 
@@ -34,7 +34,7 @@ You can check out the community driven [Laravel Notification Channels website](h
 
 You can also decide to [create your own drivers to deliver notifications via other channels](https://laravel.com/docs/9.x/notifications#custom-channels).
 
-In this tutorial, we'll build a Laravel application that shows how to send notifications via `[email](https://laravel.com/docs/9.x/notifications#mail-notifications)` and `[database](https://laravel.com/docs/9.x/notifications#database-notifications)` channels.
+In this tutorial, we'll build a Laravel application that shows how to send notifications via [email](https://laravel.com/docs/9.x/notifications#mail-notifications) and [database](https://laravel.com/docs/9.x/notifications#database-notifications) channels.
 
 ## How to Send Database Notifications
 
@@ -258,7 +258,7 @@ Define a `deposit()` method to include logic for making a deposit and sending a 
         }
 ```
 
-Notifications are sent using either the `notify()` method from `[Notifiable](https://laravel.com/docs/9.x/notifications#using-the-notifiable-trait)` [trait](https://laravel.com/docs/9.x/notifications#using-the-notifiable-trait) or `[Notification](https://laravel.com/docs/9.x/notifications#using-the-notification-facade)` [facade](https://laravel.com/docs/9.x/notifications#using-the-notification-facade). The facade is useful when you need to send notifications to multiple entities like a collection of users. Although we are using `notify()` for this guide, here is an example of using `Notification` facade.
+Notifications are sent using either the `notify()` method from [Notifiable](https://laravel.com/docs/9.x/notifications#using-the-notifiable-trait) [trait](https://laravel.com/docs/9.x/notifications#using-the-notifiable-trait) or [Notification](https://laravel.com/docs/9.x/notifications#using-the-notification-facade) [facade](https://laravel.com/docs/9.x/notifications#using-the-notification-facade). The facade is useful when you need to send notifications to multiple entities like a collection of users. Although we are using `notify()` for this guide, here is an example of using `Notification` facade.
 
 ```php
     $users = User::all();
