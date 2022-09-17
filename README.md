@@ -1,6 +1,6 @@
 # A Laravel's Guide to Database Notification
 
-When building applications, notifications are essential because they improve user experience and interaction. It would help if you frequently alerted users to various changes or activities while they use applications. It can involve sending an SMS about their login activity for security purposes or email notifications when the order status changes. These notifications often only offer a brief explanation of the state changes. [Laravel](https://laravel.com/docs/9.x/notifications#introduction) supports several delivery channels for sending notifications, including emails, SMS, and [Slack](https://slack.com/). Additionally, notifications may be kept in a database and displayed on your web interface. Here are a few things you'll learn :
+When building applications, notifications are essential because they improve user experience and interaction. It would help if you frequently alerted users to various changes or activities while they use applications. It can involve sending an SMS about their login activity for security purposes or email notifications when an order status changes. These notifications often only offer a brief explanation of the state changes. [Laravel](https://laravel.com/docs/9.x/notifications#introduction) supports several delivery channels for sending notifications, including emails, SMS, and [Slack](https://slack.com/). Additionally, notifications may be kept in a database and displayed on your web interface. Here are a few things you'll learn :
 
 - What are notifications?
 - Notification Channels supported by Laravel
@@ -10,8 +10,8 @@ When building applications, notifications are essential because they improve use
 
 ## Laravel Notifications
 
-Notifications can be considered brief, direct messages sent to users to inform them of important information or events or to prompt a response in the application. Ideally, they keep users up to date and increase user engagement. Laravel provides support for sending notifications via a variety of channels. By default, it includes [mail](https://laravel.com/docs/9.x/notifications#mail-notifications), [slack](https://laravel.com/docs/9.x/notifications#slack-notifications), [database](https://laravel.com/docs/9.x/notifications#database-notifications), broadcast, and [vonage](https://www.vonage.com/communications-apis/) channels. You can visit the [community-driven Laravel Notification Channels website](https://laravel-notification-channels.com/) to leverage other delivery channels like Telegram or Pusher.
-By using the Laravel Artisan command, you can quickly create notifications. You can also customize the notification's email subject, body, and central action, among other things.
+Notifications can be considered brief, direct messages sent to users to inform them of important information and events or to prompt a response in the application. Ideally, they keep users up to date and increase user engagement. Laravel provides support for sending notifications via a variety of channels. By default, it includes [mail](https://laravel.com/docs/9.x/notifications#mail-notifications), [slack](https://laravel.com/docs/9.x/notifications#slack-notifications), [database](https://laravel.com/docs/9.x/notifications#database-notifications), broadcast, and [vonage](https://www.vonage.com/communications-apis/) channels. You can visit the [community-driven Laravel Notification Channels website](https://laravel-notification-channels.com/) to leverage other delivery channels like Telegram or Pusher.
+By using the Laravel Artisan command, you can quickly create notifications. You can also customize the notification's details.
 
 ## Laravel's Notification Channels
 
@@ -30,11 +30,12 @@ Users will receive these SMS notifications on their mobile phones.
 These notifications are stored in the database, and you can display them to the user with a custom UI.
 
 ### Slack
+
 These notifications are sent to slack channels.
 
 ### Community Driven Notifications
 
-You can check out the community-driven [Laravel Notification Channels website](http://laravel-notification-channels.com/) if you want to use various other channels like Telegram.
+Check out the community-driven [Laravel Notification Channels website](http://laravel-notification-channels.com/) if you want to use various other channels like Telegram.
 
 You can also decide to [create your drivers to deliver notifications via other channels](https://laravel.com/docs/9.x/notifications#custom-channels).
 
@@ -68,7 +69,7 @@ Laravel Auth provides a prebuilt authentication UI and functionality to interact
     composer require laravel/ui
 ```
 
-Then create a bootstrap auth scaffold. A bootstrap authentication scaffold provides a default UI and basic authentication for registration and login in Laravel. You can install it with the `*Artisan*` command:
+Then create a bootstrap auth scaffold. A bootstrap authentication scaffold provides a default UI and basic authentication for registration and login in Laravel. You can install it with the `Artisan` command:
 
 ```bash
     php artisan ui bootstrap --auth
@@ -101,11 +102,12 @@ The application is served on port `8000` by default, and if you visit `http://lo
 [Image]
 
 Upon successful registration or login, then you can view your dashboard. All these basic authentication processes and UI are handled by the `laravel/ui` package installed earlier.
+
 [Image]
 
 ### Create a Notifications Table
 
-You need to create a database table to contain all your notifications. It can be queried anytime to display notifications to the user interface. To generate a migration with a proper schema notification table schema, you may use this `Artisan` command:
+You need to create a database table to contain all your notifications. It can be queried anytime to display notifications to the user interface. To generate a migration with a proper notification table schema, you may use this `Artisan` command:
 
 ```bash
     php artisan notifications:table
@@ -119,7 +121,7 @@ This creates a *create_notifications_table.php* in the *database/migrations* dir
 
 ### Generating Notifications
 
-Each notification in Laravel is represented by a single class, normally stored in the app/Notifications directory. It will be generated when you run the `make:notification` Artisan command:
+Each notification in Laravel is represented by a single class, normally stored in the *app/Notifications* directory. It will be generated when you run the `make:notification` Artisan command:
 
 ```php
     php artisan make:notification DepositSuccessful
@@ -192,7 +194,7 @@ First, create the model and database migration simultaneously by running the com
 
 This creates a [Model](https://laravel.com/docs/8.x/eloquent) file called *Deposit.php* in the *app/Models* directory, and a [Migration](https://laravel.com/docs/8.x/migrations#introduction) file called *create_deposits_table.php* in the *database/migrations* directory.
 
-Update Deposit*.php* by adding the code below to the top of the file, which enables Model [mass assignment](https://laravel.com/docs/8.x/eloquent#mass-assignment).
+Update *Deposit.php* by adding the code below to the top of the file, which enables Model [mass assignment](https://laravel.com/docs/8.x/eloquent#mass-assignment).
 
 ```php
     protected $guarded = [];
@@ -274,7 +276,7 @@ Notifications are sent using either the `notify()` method from [Notifiable](http
 
 ### Set up the routes
 
-You will add a new [route](https://laravel.com/docs/8.x/routing) in *routes/web.php*. We only need to define one since we have only one endpoint, `/deposit`, for users to make a deposit.
+You will add a new [route](https://laravel.com/docs/8.x/routing) in *routes/web.php*.
 
 ```php
     Route::post('/deposit', [App\Http\Controllers\DepositController::class,'deposit'])->name('deposit');
@@ -306,7 +308,7 @@ Add a basic form to the home page for a user to deposit *resources\views\home.bl
                                     </button>
                                 </div>
                             </div>
-                        </form>
+            </form>
 ```
 
 Awesome job👍! Let's make things more interesting by including a bell notification at the navbar showing the number of unread notifications. You can also display both read and unread notifications.
@@ -339,26 +341,26 @@ Firstly,  include this CDN link to [font-awesome](https://cdnjs.com/libraries/fo
 Now, add this example before the full name and logout dropdown immediately after the `else` statement.
 
 ```php
-                               <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fa fa-bell"></i>
-                                    <span class="badge badge-light bg-success badge-xs">{{auth()->user()->unreadNotifications->count()}}</span>
-                                </a>
-                            <ul class="dropdown-menu">
-                                        @if (auth()->user()->unreadNotifications)
-                                        <li class="d-flex justify-content-end mx-1 my-2">
-                                            <a href="{{route('mark-as-read')}}" class="btn btn-success btn-sm">Mark All as Read</a>
-                                        </li>
-                                        @endif
-                                       
-                                        @foreach (auth()->user()->unreadNotifications as $notification)
-                                        <a href="#" class="text-success"><li class="p-1 text-success"> {{$notification->data['data']}}</li>  </a>
-                                        @endforeach
-                                        @foreach (auth()->user()->readNotifications as $notification)
-                                        <a href="#" class="text-secondary"><li class="p-1 text-secondary"> {{$notification->data['data']}}</li>  </a>
-                                        @endforeach
-                            </ul>
+    <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-light bg-success badge-xs">{{auth()->user()->unreadNotifications->count()}}</span>
+                    </a>
+                <ul class="dropdown-menu">
+                            @if (auth()->user()->unreadNotifications)
+                            <li class="d-flex justify-content-end mx-1 my-2">
+                                <a href="{{route('mark-as-read')}}" class="btn btn-success btn-sm">Mark All as Read</a>
                             </li>
+                            @endif
+                            
+                            @foreach (auth()->user()->unreadNotifications as $notification)
+                            <a href="#" class="text-success"><li class="p-1 text-success"> {{$notification->data['data']}}</li>  </a>
+                            @endforeach
+                            @foreach (auth()->user()->readNotifications as $notification)
+                            <a href="#" class="text-secondary"><li class="p-1 text-secondary"> {{$notification->data['data']}}</li>  </a>
+                            @endforeach
+                </ul>
+        </li>
 ```
 
 This will result in a bell icon with a badge count of the unread notifications before the full name and logout dropdown on the dashboard. It also has a dropdown of all notifications with the unread at the top. The dropdown also has an option to mark all notifications as read so that the badge count returns to 0 (which means no more unread notifications).
@@ -370,7 +372,7 @@ However, let's go a bit further into including mail notifications. When a deposi
 
 ## How to Send Email Notifications
 
-### Update `**.env**`  mail configurations
+### Update `.env`  mail configurations
 
 You need to update these environment variables with valid mailer credentials that your app will need to send emails to users.
 
@@ -396,7 +398,7 @@ In the `DepositSuccessful` notification class, you created earlier, update the `
         }
 ```
 
-Afterward, define the `toMail()` method with the mail messages. This method should return an `Illuminate/Notifications/Messages/MailMessage` instance after receiving a $notifiable entity.
+Afterward, define the `toMail()` method with the mail messages. This method should return an `Illuminate/Notifications/Messages/MailMessage` instance after receiving a `$notifiable` entity.
 
 You can now build email messages with the help of a few simple methods provided by the `MailMessage` class. A "call to action" and lines of text are possible in mail messages.
 
@@ -433,3 +435,7 @@ Notice that the greeting, line of text, and call to action(button) have been for
 ## Conclusion
 
 In this article,  you have gained an in-depth knowledge of Laravel Notifications. It is a broad concept, but this can be a great practical guide. Check out the [official Laravel documentation](https://laravel.com/docs/9.x/notifications) to learn more about [Laravel Notifications.](https://laravel.com/docs/9.x/notifications) It provides various flexible options, and you can customize these channels to tailor your application needs or [create your drivers to deliver notifications via other channels](https://laravel.com/docs/9.x/notifications#custom-channels). The code for this project is open-source and available [on GitHub](https://github.com/Roxie-32/laravel-notifications.git).
+
+I am open to questions, contributions, and conversations on better ways to implement notifications, so please comment on the repository or DM me [@twitter](https://twitter.com/OlasupoFunke).
+
+Thanks for reading🤝.
